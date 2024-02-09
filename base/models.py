@@ -23,3 +23,14 @@ class Field(models.Model):
     def __str__(self):
         return self.name
     
+
+class Resource(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=200)
+    link = models.TextField(null=True)
+    related_field = models.ForeignKey(Field, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.name
+
+   
