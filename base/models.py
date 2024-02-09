@@ -12,3 +12,6 @@ class User(AbstractUser):
     # avatar
     
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+    
+
