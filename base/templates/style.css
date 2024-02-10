@@ -5,7 +5,7 @@
   --color-main-light: #e1f6fb;
   --color-dark: #2C3E50;
   --color-dark-medium: #34495E;
-  --color-dark-light: #34495E;
+  --color-dark-light: #7793af;
   --color-light: #e5e5e5;
   --color-gray: #8b8b8b;
   --color-light-gray: #ECF0F1;
@@ -283,13 +283,13 @@ a {
 }
 
 .header__logo > img {
-  height: 3.2rem;
-  width: 3.2rem;
+  height: 6.5rem;
+  width: 6.5rem;
 }
 
 .header__logo > h1 {
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 3rem;
   color: var(--color-light);
 }
 
