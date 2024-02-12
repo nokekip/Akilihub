@@ -1,18 +1,19 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
     <title>AkiliHub - Find study partners around the world!</title>
   </head>
   <body>
     <header class="header header--loggedIn">
       <div class="container">
         <a href="/" class="header__logo">
-          <img src="assets/logo.svg" />
+          <img src="{% static 'images/icons/learner.png' %}" />
           <h1>AkiliHub</h1>
         </a>
         <form class="header__search">
@@ -70,34 +71,15 @@
           <div class="layout__body">
             <h2 class="auth__tagline">Find your study partner</h2>
 
-            <form class="form" action="#">
-              <div class="form__group form__group">
-                <label for="fullname">Full Name</label>
-                <input id="fullname" name="fullname" type="text" placeholder="e.g. Dennis Ivy" />
-              </div>
-              <div class="form__group form__group">
-                <label for="room_name">Username</label>
-                <input id="username" name="username" type="text" placeholder="e.g. dennis_ivy" />
-              </div>
-              <div class="form__group">
-                <label for="password">Password</label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-                />
-              </div>
+            <form class="form" action="" method="POST">
+              {% csrf_token %}
 
-              <div class="form__group">
-                <label for="confirm_password">Confirm Password</label>
-                <input
-                  id="confirm_password"
-                  name="confirm_password"
-                  type="password"
-                  placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-                />
-              </div>
+              {% for field in form %}
+                <div class="form__group form__group">
+                  <label for="fullname">{{field.label}}</label>
+                  {{field}}
+                </div>
+              {% endfor %}
 
               <button class="btn btn--main" type="submit">
                 <svg
