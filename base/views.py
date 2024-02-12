@@ -14,7 +14,7 @@ def register(request):
             user = form.save()
             return redirect('home')
     context = {'form': form}
-    return render(request, 'register.html', context)
+    return render(request, 'base/signup.html', context)
 
 
 # login user
@@ -35,7 +35,7 @@ def loginUser(request):
             return redirect('home')
         else:
             messages.error(request, 'Invalid Username or Password')
-    return render(request, 'login.html')
+    return render(request, 'base/login.html')
 
 
 # logout user
@@ -46,5 +46,5 @@ def logoutUser(request):
 
 # home page
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'base/index.html')
 
