@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import CreateUserForm
 
 # Create your views here.
@@ -36,6 +36,12 @@ def loginUser(request):
         else:
             messages.error(request, 'Invalid Username or Password')
     return render(request, 'login.html')
+
+
+# logout user
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
 
 
 # home page
