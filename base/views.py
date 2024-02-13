@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import Field, AkiliRoom
+from .models import Field, AkiliRoom, Event
 from .forms import CreateUserForm
 
 # Create your views here.
@@ -49,6 +49,7 @@ def logoutUser(request):
 def index(request):
     fields = Field.objects.all()
     rooms = AkiliRoom.objects.all()
-    context = {'fields': fields, 'rooms': rooms}
+    events = Event.objects.all()
+    context = {'fields': fields, 'rooms': rooms, 'events': events}
     return render(request, 'base/index.html', context)
 
