@@ -48,8 +48,7 @@ def logoutUser(request):
 # home page
 def index(request):
     fields = Field.objects.all()
-    total_fields = Field.objects.count()
-    total_rooms = AkiliRoom.objects.count()
-    context = {'fields': fields, 'total_fields': total_fields, 'total_rooms':total_rooms}
+    rooms = AkiliRoom.objects.all()
+    context = {'fields': fields, 'rooms': rooms}
     return render(request, 'base/index.html', context)
 
