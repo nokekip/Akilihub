@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import Q
 from .models import Field, AkiliRoom, Event
 from .forms import CreateUserForm
 
@@ -47,8 +48,13 @@ def logoutUser(request):
 
 # home page
 def index(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
     fields = Field.objects.all()
-    rooms = AkiliRoom.objects.all()
+    rooms = AkiliRoom.objects.filter(
+        Q(field__name__icontains=q) |
+        Q(name__icontains=q) |
+        Q(description__icontains=q)
+    )
     events = Event.objects.all()
     context = {'fields': fields, 'rooms': rooms, 'events': events}
     return render(request, 'base/index.html', context)
