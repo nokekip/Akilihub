@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
     <title>AkiliHub - Find study partners around the world!</title>
   </head>
 
@@ -54,7 +55,7 @@
         <div class="room">
           <div class="room__top">
             <div class="room__topLeft">
-              <a href="index.html">
+              <a href="{% url 'home' %}">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                   <title>arrow-left</title>
                   <path
@@ -62,7 +63,7 @@
                   ></path>
                 </svg>
               </a>
-              <h3>Study Room</h3>
+              <h3>AkiliRoom</h3>
             </div>
 
             <div class="room__topRight">
@@ -121,8 +122,8 @@
           <div class="room__box scroll">
             <div class="room__header scroll">
               <div class="room__info">
-                <h3>100 Days of Code Challenge</h3>
-                <span>3 days ago</span>
+                <h3>{{room.name}}</h3>
+                <span>{{room.created_at | timesince}}</span>
               </div>
               <div class="room__hosted">
                 <p>Hosted By</p>
@@ -130,18 +131,17 @@
                   <div class="avatar avatar--small">
                     <img src="https://randomuser.me/api/portraits/men/37.jpg" />
                   </div>
-                  <span>@dennis_ivy</span>
+                  <span>@{{room.owner.username}}</span>
                 </a>
               </div>
               <div class="room__details">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi, tenetur laudantium? Dicta repellendus
-                rerum consectetur, voluptatem repudiandae eum ea porro cupiditate provident nulla, deserunt, ab ipsum
-                corporis laboriosam deleniti molestias?
+                {{room.description}}
               </div>
-              <span class="room__topics">JavaScript</span>
+              <span class="room__topics">{{room.field}}</span>
             </div>
             <div class="room__conversation">
               <div class="threads scroll">
+                {% for message in threads %}
                 <div class="thread">
                   <div class="thread__top">
                     <div class="thread__author">
@@ -149,9 +149,9 @@
                         <div class="avatar avatar--small">
                           <img src="https://randomuser.me/api/portraits/men/37.jpg" />
                         </div>
-                        <span>@dennis_ivy</span>
+                        <span>@{{message.user.username}}</span>
                       </a>
-                      <span class="thread__date">3 day ago</span>
+                      <span class="thread__date">{{message.created_at| timesince}}</span>
                     </div>
                     <div class="thread__delete">
                       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
@@ -163,88 +163,10 @@
                     </div>
                   </div>
                   <div class="thread__details">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque nobis, deserunt cum quibusdam aliquam
-                    nihil unde et impedit, quaerat! Corporis praesentium aspernatur autem laboriosam natus similique,
-                    adipisci nam maxime.
+                    {{message.text}}
                   </div>
                 </div>
-                <div class="thread">
-                  <div class="thread__top">
-                    <div class="thread__author">
-                      <a href="#" class="thread__authorInfo">
-                        <div class="avatar avatar--small">
-                          <img src="https://randomuser.me/api/portraits/men/37.jpg" />
-                        </div>
-                        <span>@dennis_ivy</span>
-                      </a>
-                      <span class="thread__date">3 day ago</span>
-                    </div>
-                    <div class="thread__delete">
-                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                        <title>remove</title>
-                        <path
-                          d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"
-                        ></path>
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="thread__details">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque nobis, deserunt cum quibusdam aliquam
-                    nihil unde et impedit, sequi, modi quos porro iure enim suscipit itaque earum tenetur praesentium
-                    quaerat! Corporis praesentium aspernatur autem laboriosam natus similique, adipisci nam maxime.
-                  </div>
-                </div>
-                <div class="thread">
-                  <div class="thread__top">
-                    <div class="thread__author">
-                      <a href="#" class="thread__authorInfo">
-                        <div class="avatar avatar--small">
-                          <img src="https://randomuser.me/api/portraits/men/37.jpg" />
-                        </div>
-                        <span>@dennis_ivy</span>
-                      </a>
-                      <span class="thread__date">3 day ago</span>
-                    </div>
-                    <div class="thread__delete">
-                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                        <title>remove</title>
-                        <path
-                          d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"
-                        ></path>
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="thread__details">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque nobis, deserunt cum quibusdam aliquam
-                    nihil unde et impedit, sequi, modi quos porro iure enim suscipit itaque earum tenetur praesentium
-                    quaerat! Corporis praesentium aspernatur autem laboriosam natus similique, adipisci nam maxime.
-                  </div>
-                </div>
-                <div class="thread">
-                  <div class="thread__top">
-                    <div class="thread__author">
-                      <a href="#" class="thread__authorInfo">
-                        <div class="avatar avatar--small">
-                          <img src="https://randomuser.me/api/portraits/men/37.jpg" />
-                        </div>
-                        <span>@dennis_ivy</span>
-                      </a>
-                      <span class="thread__date">3 day ago</span>
-                    </div>
-                    <div class="thread__delete">
-                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                        <title>remove</title>
-                        <path
-                          d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"
-                        ></path>
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="thread__details">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque nobis, deserunt cum quibusdam aliquam
-                    nihil unde et impedit, sequi, modi quos porro iure enim suscipit itaque earum tenetur praesentium.
-                  </div>
-                </div>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -256,7 +178,7 @@
 
         <!--   Start -->
         <div class="participants">
-          <h3 class="participants__top">Participants <span>(5.3k Joined)</span></h3>
+          <h3 class="participants__top">Members <span>(5.3k Joined)</span></h3>
           <div class="participants__list scroll">
             <a href="profile.html" class="participant">
               <div class="avatar avatar--medium">

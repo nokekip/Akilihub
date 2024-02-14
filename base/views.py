@@ -65,3 +65,9 @@ def index(request):
     context = {'fields': fields, 'rooms': rooms, 'events': events}
     return render(request, 'base/index.html', context)
 
+
+# single room page
+def room(request, pk):
+    room = AkiliRoom.objects.get(id=pk)
+    threads = room.message_set.all()
+    return render(request, 'base/room.html', {'room': room, 'threads': threads})
