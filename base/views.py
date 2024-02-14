@@ -70,4 +70,6 @@ def index(request):
 def room(request, pk):
     room = AkiliRoom.objects.get(id=pk)
     threads = room.message_set.all()
-    return render(request, 'base/room.html', {'room': room, 'threads': threads})
+    members = room.members.all()
+    context = {'room': room,'threads': threads, 'members': members}
+    return render(request, 'base/room.html', context)
