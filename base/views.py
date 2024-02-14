@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import Field, AkiliRoom, Event, Message
+from .models import Field, AkiliRoom, Event, Message, User
 from .forms import CreateUserForm, AkiliRoomForm
 
 # Create your views here.
@@ -85,6 +85,14 @@ def room(request, pk):
     
     context = {'room': room,'threads': threads, 'members': members}
     return render(request, 'base/room.html', context)
+
+
+# user profile
+@login_required(login_url='login')
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    context = {'user': user}
+    return render(request, 'base/profile.html', context)
 
 
 # creating a room

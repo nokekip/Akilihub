@@ -80,7 +80,7 @@
               </div>
               <div class="room__hosted">
                 <p>Hosted By</p>
-                <a href="#" class="room__author">
+                <a href="{% url 'user-profile' room.owner.id %}" class="room__author">
                   <div class="avatar avatar--small">
                     <img src="https://randomuser.me/api/portraits/men/37.jpg" />
                   </div>
