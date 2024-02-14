@@ -103,3 +103,24 @@ def createRoom(request):
     
     context = {'form': form, 'fields': fields}
     return render(request, 'base/create-room.html', context)
+
+# Update room details
+def updateRoom(request, pk):
+    room = AkiliRoom.objects.get(id=pk)
+    form = AkiliRoomForm(request.POST or None, instance=room)
+    fields = Field.objects.all()
+    
+    if request.method == 'POST':
+        field_name = request.POST.get('field')
+        field, created_at = Field.objects.get_or_create(name=field_name)
+        room.name = request.POST.get('name')
+        room.field = field
+        room.description = request.POST.get('description')
+        room.save()
+        return redirect('home')
+    
+    context = {'form': form, 'fields': fields, 'room': room}
+    return render(request, 'base/create-room.html', context)
+
+
+

@@ -19,7 +19,7 @@
 
             {% if room.owner == request.user %}
             <div class="room__topRight">
-              <a href="#">
+              <a href="{% url 'update-room' room.id %}">
                 <svg
                   enable-background="new 0 0 24 24"
                   height="32"
