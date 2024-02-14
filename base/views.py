@@ -131,3 +131,12 @@ def deleteRoom(request, pk):
         return redirect('home')
     context = {'obj': room}
     return render(request, 'base/delete.html', context)
+
+# delete message
+def deleteMessage(request, pk):
+    message = Message.objects.get(id=pk)
+    if request.method == 'POST':
+        message.delete()
+        return redirect('home')
+    context = {'obj': message}
+    return render(request, 'base/delete.html', context)
