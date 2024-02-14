@@ -66,6 +66,7 @@
               <h3>AkiliRoom</h3>
             </div>
 
+            {% if room.owner == request.user %}
             <div class="room__topRight">
               <a href="#">
                 <svg
@@ -102,6 +103,7 @@
                 </svg>
               </a>
             </div>
+            {% endif %}
 
             <!-- <button class="action-button" data-id="120" data-delete-url="https://randomuser.me/api/3324923"
             data-edit-url="profile.html">
