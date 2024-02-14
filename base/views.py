@@ -123,4 +123,11 @@ def updateRoom(request, pk):
     return render(request, 'base/create-room.html', context)
 
 
-
+# delete room
+def deleteRoom(request, pk):
+    room = AkiliRoom.objects.get(id=pk)
+    if request.method == 'POST':
+        room.delete()
+        return redirect('home')
+    context = {'obj': room}
+    return render(request, 'base/delete.html', context)
