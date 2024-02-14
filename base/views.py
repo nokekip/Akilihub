@@ -88,7 +88,18 @@ def room(request, pk):
 # creating a room
 def createRoom(request):
     form = AkiliRoomForm()
-    field = Field.objects.all()
+    fields = Field.objects.all()
     if request.method == 'POST':
-        print(form)
+        field_name = request.POST.get('field')
+        field, created_at = Field.objects.get_or_create(name=field_name)
+        
+        AkiliRoom.objects.create(
+            owner=request.user,
+            field=field,
+            name=request.POST.get('name'),
+            description=request.POST.get('description')
+        )
+        return redirect('home')
     
+    context = {'form': form, 'fields': fields}
+    return render(request, 'base/create-room.html', context)
