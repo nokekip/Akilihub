@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Field, AkiliRoom, Event, Message
 from .forms import CreateUserForm, AkiliRoomForm
@@ -67,6 +68,7 @@ def index(request):
 
 
 # single room page
+@login_required(login_url='login')
 def room(request, pk):
     room = AkiliRoom.objects.get(id=pk)
     threads = room.message_set.all()
@@ -86,6 +88,7 @@ def room(request, pk):
 
 
 # creating a room
+@login_required(login_url='login')
 def createRoom(request):
     form = AkiliRoomForm()
     fields = Field.objects.all()
@@ -105,6 +108,7 @@ def createRoom(request):
     return render(request, 'base/create-room.html', context)
 
 # Update room details
+@login_required(login_url='login')
 def updateRoom(request, pk):
     room = AkiliRoom.objects.get(id=pk)
     form = AkiliRoomForm(request.POST or None, instance=room)
@@ -124,6 +128,7 @@ def updateRoom(request, pk):
 
 
 # delete room
+@login_required(login_url='login')
 def deleteRoom(request, pk):
     room = AkiliRoom.objects.get(id=pk)
     if request.method == 'POST':
@@ -133,6 +138,7 @@ def deleteRoom(request, pk):
     return render(request, 'base/delete.html', context)
 
 # delete message
+@login_required(login_url='login')
 def deleteMessage(request, pk):
     message = Message.objects.get(id=pk)
     if request.method == 'POST':
