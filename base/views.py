@@ -9,6 +9,9 @@ from .forms import CreateUserForm
 
 # registering new user
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -21,6 +24,9 @@ def register(request):
 
 # login user
 def loginUser(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -59,3 +65,11 @@ def index(request):
     context = {'fields': fields, 'rooms': rooms, 'events': events}
     return render(request, 'base/index.html', context)
 
+
+# single room page
+def room(request, pk):
+    room = AkiliRoom.objects.get(id=pk)
+    threads = room.message_set.all()
+    members = room.members.all()
+    context = {'room': room,'threads': threads, 'members': members}
+    return render(request, 'base/room.html', context)
