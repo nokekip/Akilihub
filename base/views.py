@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
-from .models import Field, AkiliRoom, Event
-from .forms import CreateUserForm
+from .models import Field, AkiliRoom, Event, Message
+from .forms import CreateUserForm, AkiliRoomForm
 
 # Create your views here.
 
@@ -71,5 +71,24 @@ def room(request, pk):
     room = AkiliRoom.objects.get(id=pk)
     threads = room.message_set.all()
     members = room.members.all()
+    
+    if request.method == 'POST':
+        message = Message.objects.create(
+            user=request.user,
+            room=room,
+            text=request.POST.get('text')
+        )
+        room.members.add(request.user)
+        return redirect('room', pk=room.id)
+    
     context = {'room': room,'threads': threads, 'members': members}
     return render(request, 'base/room.html', context)
+
+
+# creating a room
+def createRoom(request):
+    form = AkiliRoomForm()
+    field = Field.objects.all()
+    if request.method == 'POST':
+        print(form)
+    
