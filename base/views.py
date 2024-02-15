@@ -56,7 +56,7 @@ def logoutUser(request):
 # home page
 def index(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
-    fields = Field.objects.all()
+    fields = Field.objects.all()[0:5]
     rooms = AkiliRoom.objects.filter(
         Q(field__name__icontains=q) |
         Q(name__icontains=q) |
@@ -180,3 +180,8 @@ def updateUser(request):
     
     context = {'form': form}
     return render(request, 'base/edit-user.html', context)
+
+def events(request):
+    events = Event.objects.all()
+    context = {'events': events}
+    return render(request, 'base/activity.html', context)
