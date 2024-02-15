@@ -66,6 +66,12 @@ def index(request):
     context = {'fields': fields, 'rooms': rooms, 'events': events}
     return render(request, 'base/index.html', context)
 
+# Fields page
+def fields(request):
+    fields = Field.objects.all()
+    context = {'fields': fields}
+    return render(request, 'base/fields.html', context)
+
 
 # single room page
 @login_required(login_url='login')
