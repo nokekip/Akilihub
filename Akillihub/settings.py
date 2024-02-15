@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-)l!7@v=k_#zz-^97-nwq2e70a*764f6crt3-2peqrcg_rw4f0u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','akili-hub.onrender.com']
 
 
 # Application definition
