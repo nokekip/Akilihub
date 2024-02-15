@@ -15,3 +15,9 @@ class AkiliRoomForm(ModelForm):
         model = AkiliRoom
         fields = '__all__'
         exclude = ['owner', 'members']
+        
+# form for updating user
+class UpdateUserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['name', 'username', 'email']

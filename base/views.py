@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Field, AkiliRoom, Event, Message, User
-from .forms import CreateUserForm, AkiliRoomForm
+from .forms import CreateUserForm, AkiliRoomForm, UpdateUserForm
 
 # Create your views here.
 
@@ -158,3 +158,18 @@ def deleteMessage(request, pk):
         return redirect('home')
     context = {'obj': message}
     return render(request, 'base/delete.html', context)
+
+# update user profile
+@login_required(login_url='login')
+def updateUser(request):
+    user = request.user
+    form = UpdateUserForm(instance=user)
+    
+    if request.method == 'POST':
+        form = UpdateUserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile', pk=user.id)
+    
+    context = {'form': form}
+    return render(request, 'base/edit-user.html', context)
