@@ -19,7 +19,7 @@
 
             {% if room.owner == request.user %}
             <div class="room__topRight">
-              <a href="#">
+              <a href="{% url 'update-room' room.id %}">
                 <svg
                   enable-background="new 0 0 24 24"
                   height="32"
@@ -45,7 +45,7 @@
                   </g>
                 </svg>
               </a>
-              <a href="#">
+              <a href="{% url 'delete-room' room.id %}">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                   <title>remove</title>
                   <path
@@ -80,9 +80,9 @@
               </div>
               <div class="room__hosted">
                 <p>Hosted By</p>
-                <a href="#" class="room__author">
+                <a href="{% url 'user-profile' room.owner.id %}" class="room__author">
                   <div class="avatar avatar--small">
-                    <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                    <img src="{{room.owner.avatar.url}}" />
                   </div>
                   <span>@{{room.owner.username}}</span>
                 </a>
@@ -98,9 +98,9 @@
                 <div class="thread">
                   <div class="thread__top">
                     <div class="thread__author">
-                      <a href="#" class="thread__authorInfo">
+                      <a href="{% url 'user-profile' message.user.id %}" class="thread__authorInfo">
                         <div class="avatar avatar--small">
-                          <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                          <img src="{{message.user.avatar.url}}" />
                         </div>
                         <span>@{{message.user.username}}</span>
                       </a>
@@ -108,6 +108,7 @@
                     </div>
 
                     {% if request.user == message.user %}
+                    <a href="{% url 'delete-message' message.id %}">
                     <div class="thread__delete">
                       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                         <title>remove</title>
@@ -116,6 +117,7 @@
                         ></path>
                       </svg>
                     </div>
+                    </a>
                     {% endif %}
                   </div>
                   <div class="thread__details">
@@ -126,9 +128,15 @@
               </div>
             </div>
           </div>
+
+          {% if request.user.is_authenticated %}
           <div class="room__message">
-            <form action="#"><input name="" placeholder="Write your message here..." /></form>
+            <form action="" method="POST">
+              {% csrf_token %}
+              <input name="text" placeholder="Write your message here..." />
+            </form>
           </div>
+          {% endif %}
         </div>
         <!-- Room End -->
 
@@ -137,9 +145,9 @@
           <h3 class="participants__top">Members <span>({{members.count}} Joined)</span></h3>
           <div class="participants__list scroll">
             {%for member in members%}
-            <a href="profile.html" class="participant">
+            <a href="{% url 'user-profile' member.id %}" class="participant">
               <div class="avatar avatar--medium">
-                <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                <img src="{{member.avatar.url}}" />
               </div>
               <p>
                 {{member.name}}
