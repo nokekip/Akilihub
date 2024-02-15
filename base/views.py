@@ -91,7 +91,11 @@ def room(request, pk):
 @login_required(login_url='login')
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
-    context = {'user': user}
+    rooms = user.akiliroom_set.all()
+    room_messages = user.message_set.all()
+    fields = Field.objects.all()
+    context = {'user': user, 'rooms': rooms,
+               'room_messages': room_messages, 'fields': fields}
     return render(request, 'base/profile.html', context)
 
 
