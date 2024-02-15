@@ -20,4 +20,4 @@ class AkiliRoomForm(ModelForm):
 class UpdateUserForm(ModelForm):
     class Meta:
         model = User
-        fields = ['name', 'username', 'email']
+        fields = ['avatar', 'name', 'username', 'email', 'bio']
