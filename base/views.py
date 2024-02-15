@@ -68,7 +68,8 @@ def index(request):
 
 # Fields page
 def fields(request):
-    fields = Field.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    fields = Field.objects.filter(name__icontains=q)
     context = {'fields': fields}
     return render(request, 'base/fields.html', context)
 
