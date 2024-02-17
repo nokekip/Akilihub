@@ -39,10 +39,11 @@ def loginUser(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         
-        try:
-            user = user.object.get(email=email)
-        except:
-            messages.error(request, 'User does not exist!')
+        # try:
+        #     user = user.object.get(email=email)
+        # except:
+        #     messages.error(request, 'User does not exist!')
+        #     return redirect('login')
             
         user = authenticate(request, email=email, password=password)
         
