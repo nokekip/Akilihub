@@ -31,6 +31,9 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost','akili-hub.onrender.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
+    
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
