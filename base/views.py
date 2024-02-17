@@ -22,7 +22,9 @@ def register(request):
             messages.success(request, "Registration successful! You are now logged in.")
             return redirect('home')
         else:
-            messages.info(request, 'Invalid registration details')
+            # messages.info(request, 'Invalid registration details')
+            for error in form.errors:
+                messages.error(request, form.errors[error])
             
     context = {'form': form}
     return render(request, 'base/signup.html', context)
