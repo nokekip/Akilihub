@@ -18,7 +18,12 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            login(request, user)
+            messages.success(request, "Registration successful! You are now logged in.")
             return redirect('home')
+        else:
+            messages.info(request, 'Invalid registration details')
+            
     context = {'form': form}
     return render(request, 'base/signup.html', context)
 
